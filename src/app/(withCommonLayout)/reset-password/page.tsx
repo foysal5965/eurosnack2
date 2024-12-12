@@ -11,7 +11,12 @@ import { getFromLocalStorage } from '@/utils/local-storage';
 import { authKey } from '@/constants/authKey';
 import { userResetPassword } from '@/services/actions/user.resetPassword';
 import { deleteCookies } from '@/services/actions/deleteCookies';
+export type ResetPassword= {
+  password:string;
+  confirmPassword: string,
 
+
+}
 const validationSchema = z.object({
   password: z
     .string()
@@ -30,13 +35,17 @@ const ResetPasswordPage = () => {
    const token = searchParams.get('token');
    const router = useRouter();
    const locatToken = getFromLocalStorage(authKey)
-  
+   const defaultValues: ResetPassword = {
+    password: "",
+    confirmPassword: "",
+};
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<ResetPassword>({
     resolver: zodResolver(validationSchema),
+    defaultValues
   });
 
   const containerVariants = {
@@ -68,14 +77,7 @@ const ResetPasswordPage = () => {
            })
            router.push('/forgot-password')
         }
-        // if ('data' in res && res.data.status === 200) {
-        //    toast.success('Password Reset Successful');
-        //    localStorage.removeItem(authKey);
-        //    deleteCookies([authKey, 'refreshToken']);
-        //    router.push('/login');
-        // } else {
-        //    throw new Error('Something Went Wrong, Try Again');
-        // }
+       
      } catch (error) {
         toast.success('Something Went Wrong, Try Again');
      }
