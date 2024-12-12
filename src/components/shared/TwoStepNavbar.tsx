@@ -75,7 +75,7 @@ const TwoStepNavbar = () => {
     const { data: categories } = useCategoriesQuery({})
     const { data: brands } = useBrandsQuery({})
     //@ts-ignore
-    const { data: carts } = useCartsQuery({},{ skip: !user?.email })
+    const { data: carts } = useCartsQuery({}, { skip: !user?.email })
     // const {data:cartItemss}= useCartItemsQuery({})
 
 
@@ -142,8 +142,8 @@ const TwoStepNavbar = () => {
     const categoriesWithDropdown = ["Trending Categories", "Brands", "Categories", "Others"];
 
     const [removeFromCart] = useRemoveFromCartMutation()
-    
-    
+
+
     const handleRemove = async (id: string) => {
         const res = await removeFromCart({ productId: id })
 
@@ -176,10 +176,18 @@ const TwoStepNavbar = () => {
                             }}
                         >
                             <List>
-                                {["Home", "Shops", "Trending Categories", "Brands", "Categories", "Others", "Contact Us"].map((text, index) => (
+                                {[
+                                    "Home",
+                                    "Shops",
+                                    "Trending Categories",
+                                    "Brands",
+                                    "Categories",
+                                    "Others",
+                                    "Contact Us",
+                                ].map((text, index) => (
                                     <Box key={index}>
                                         <ListItem
-                                            button
+                                            component="button"
                                             onClick={() => {
                                                 // Set specific links for Home, Shops, and Contact Us
                                                 if (text === "Home") {
@@ -197,57 +205,78 @@ const TwoStepNavbar = () => {
                                             }}
                                         >
                                             <ListItemText primary={text} />
-                                            {["Trending Categories", "Brands", "Categories", "Others"].includes(text) && (
-                                                drawerDropdownOpen[text] ? <ExpandLessIcon /> : <ExpandMoreIcon />
-                                            )}
+                                            {["Trending Categories", "Brands", "Categories", "Others"].includes(text) &&
+                                                (drawerDropdownOpen[text] ? <ExpandLessIcon /> : <ExpandMoreIcon />)}
                                         </ListItem>
 
                                         {["Trending Categories", "Brands", "Categories", "Others"].includes(text) && (
                                             <Collapse in={drawerDropdownOpen[text]} timeout="auto" unmountOnExit>
                                                 <List component="div" disablePadding>
-                                                    {text === "Trending Categories" && categories?.data?.map((category: any) => (
-                                                        <ListItem key={category.id} onClick={handleDropdownOptionClick} sx={{
-                                                            cursor: 'pointer',
-                                                            borderBottom: "1px solid #ddd", // Border under each sub-option
-                                                        }}>
-                                                            <Link href={`/shops/category/${category.id}`}>
-                                                                <ListItemText primary={category.title} />
-                                                            </Link>
-                                                        </ListItem>
-                                                    ))}
-                                                    {text === "Brands" && brands?.data?.map((brand: any) => (
-                                                        <ListItem key={brand.id} onClick={handleDropdownOptionClick} sx={{
-                                                            cursor: 'pointer',
-                                                            borderBottom: "1px solid #ddd", // Border under each sub-option
-                                                        }}>
-                                                            <Link href={`/shops/brand/${brand.id}`}>
-                                                                <ListItemText primary={brand.title} />
-                                                            </Link>
-                                                        </ListItem>
-                                                    ))}
-                                                    {text === "Categories" && categories?.data?.map((category: any) => (
-                                                        <ListItem key={category.id} onClick={handleDropdownOptionClick} sx={{
-                                                            cursor: 'pointer',
-                                                            borderBottom: "1px solid #ddd", // Border under each sub-option
-                                                        }}>
-                                                            <Link href={`/shops/category/${category.id}`}>
-                                                                <ListItemText primary={category.title} />
-                                                            </Link>
-                                                        </ListItem>
-                                                    ))}
-                                                    {text === "Others" && ["Option 1", "Option 2", "Option 3"].map((subOption, subIdx) => (
-                                                        <ListItem button key={subIdx} onClick={handleDropdownOptionClick} sx={{
-                                                            borderBottom: "1px solid #ddd", // Border under each sub-option
-                                                        }}>
-                                                            <ListItemText primary={subOption} />
-                                                        </ListItem>
-                                                    ))}
+                                                    {text === "Trending Categories" &&
+                                                        categories?.data?.map((category: any) => (
+                                                            <ListItem
+                                                                key={category.id}
+                                                                onClick={handleDropdownOptionClick}
+                                                                sx={{
+                                                                    cursor: "pointer",
+                                                                    borderBottom: "1px solid #ddd", // Border under each sub-option
+                                                                }}
+                                                            >
+                                                                <Link href={`/shops/category/${category.id}`}>
+                                                                    <ListItemText primary={category.title} />
+                                                                </Link>
+                                                            </ListItem>
+                                                        ))}
+                                                    {text === "Brands" &&
+                                                        brands?.data?.map((brand: any) => (
+                                                            <ListItem
+                                                                key={brand.id}
+                                                                onClick={handleDropdownOptionClick}
+                                                                sx={{
+                                                                    cursor: "pointer",
+                                                                    borderBottom: "1px solid #ddd", // Border under each sub-option
+                                                                }}
+                                                            >
+                                                                <Link href={`/shops/brand/${brand.id}`}>
+                                                                    <ListItemText primary={brand.title} />
+                                                                </Link>
+                                                            </ListItem>
+                                                        ))}
+                                                    {text === "Categories" &&
+                                                        categories?.data?.map((category: any) => (
+                                                            <ListItem
+                                                                key={category.id}
+                                                                onClick={handleDropdownOptionClick}
+                                                                sx={{
+                                                                    cursor: "pointer",
+                                                                    borderBottom: "1px solid #ddd", // Border under each sub-option
+                                                                }}
+                                                            >
+                                                                <Link href={`/shops/category/${category.id}`}>
+                                                                    <ListItemText primary={category.title} />
+                                                                </Link>
+                                                            </ListItem>
+                                                        ))}
+                                                    {text === "Others" &&
+                                                        ["Option 1", "Option 2", "Option 3"].map((subOption, subIdx) => (
+                                                            <ListItem
+                                                                component="button"
+                                                                key={subIdx}
+                                                                onClick={handleDropdownOptionClick}
+                                                                sx={{
+                                                                    borderBottom: "1px solid #ddd", // Border under each sub-option
+                                                                }}
+                                                            >
+                                                                <ListItemText primary={subOption} />
+                                                            </ListItem>
+                                                        ))}
                                                 </List>
                                             </Collapse>
                                         )}
                                     </Box>
                                 ))}
                             </List>
+
                         </Drawer>
 
 
@@ -325,7 +354,7 @@ const TwoStepNavbar = () => {
                     <Box sx={{ display: "flex", gap: 3 }}>
                         {/* Compare Icon */}
                         <Tooltip title="Compare">
-                            <Box sx={{ display: {xs:'none', sm:'flex'}, alignItems: "center", gap: 1 }}>
+                            <Box sx={{ display: { xs: 'none', sm: 'flex' }, alignItems: "center", gap: 1 }}>
                                 <IconButton sx={{ color: "#fff" }}>
                                     <CompareIcon />
                                 </IconButton>
@@ -360,10 +389,10 @@ const TwoStepNavbar = () => {
                                         "aria-labelledby": "cart-button",
                                     }}
                                 >
-                                {
-                                    user?.email ? (<Cart cartItems={carts?.data} onRemove={handleRemove} onCheckout={handleCheckout} handleMenuClose={handleMenuClose} />) : (<p>Please log in to view your cart</p>)
-                                }
-                                    
+                                    {
+                                        user?.email ? (<Cart cartItems={carts?.data} onRemove={handleRemove} onCheckout={handleCheckout} handleMenuClose={handleMenuClose} />) : (<p>Please log in to view your cart</p>)
+                                    }
+
                                 </Menu>
                             </Box>
                         </Tooltip>
