@@ -39,8 +39,10 @@ console.log(query)
   const {data:categoryData, isLoading:categoryLoading, error:categoryError}= useCategoriesQuery({})
 
   // Price range handler
-  const handlePriceChange = (_: any, newValue: number[]) => {
-    setPriceRange(newValue);
+  const handlePriceChange = (_event: Event, newValue: number | number[]) => {
+    if (Array.isArray(newValue)) {
+      setPriceRange(newValue);
+    }
   };
 
   // Toggle selection in categories or brands
