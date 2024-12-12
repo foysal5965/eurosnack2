@@ -21,13 +21,7 @@ import Image from "next/image";
 import Loading from "@/components/shared/loading/loading";
 import Link from "next/link";
 
-const CartItems = ({
- 
-  onCheckout,
-}: {
-  
-  onCheckout: () => void;
-}) => {
+const CartItems = () => {
   const { data: carts, isLoading } = useCartsQuery({});
 const [removeFromCart, {isLoading:removeLoading}] = useRemoveFromCartMutation()
 const onRemove = async(id:string)=>{
