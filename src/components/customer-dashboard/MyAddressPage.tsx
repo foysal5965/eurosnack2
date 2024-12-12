@@ -59,11 +59,11 @@ const MyAddressPage = () => {
 
   const handleSave = () => {
     if (editingAddress) {
-      setAddresses((prev) =>
-        prev.map((addr) =>
-          addr.id === editingAddress.id ? { ...editingAddress, ...newAddress } : addr
-        )
-      );
+      // setAddresses((prev) =>
+      //   prev.map((addr) =>
+      //     addr.id === editingAddress.id ? { ...editingAddress, ...newAddress } : addr
+      //   )
+      // );
     } else {
       setAddresses((prev) => [
         ...prev,
@@ -73,7 +73,7 @@ const MyAddressPage = () => {
     handleClose();
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = (id:any) => {
     setAddresses((prev) => prev.filter((addr) => addr.id !== id));
   };
 
@@ -140,7 +140,7 @@ const MyAddressPage = () => {
                 </Typography>
               </CardContent>
               <Box sx={{ position: 'absolute', top: 10, right: 10 }}>
-                <IconButton color="primary" onClick={() => handleOpen(address)}>
+                <IconButton color="primary" >
                   <Edit />
                 </IconButton>
                 <IconButton color="error" onClick={() => handleDelete(address.id)}>
