@@ -6,9 +6,15 @@ import { JwtPayload } from 'jwt-decode';
 import { useRouter } from 'next/navigation';
 import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 
+interface User {
+  email: string;
+  role: string;
+  // Add any other properties your `decodedData` includes
+}
+
 interface AuthContextType {
-  user: string | null;
-  login: (user: string) => void;
+  user: User | null;
+  login: (token: string) => void; // Change login parameter to reflect token usage
   logout: () => void;
 }
 
@@ -23,25 +29,30 @@ export const useAuth = (): AuthContextType => {
 };
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<string | null>(null);
+  const [user, setUser] = useState<User | null>(null);
 const router = useRouter()
   useEffect(() => {
     // On initial load, check if user is already logged in
     const authToken = localStorage.getItem('accessToken');
     if (authToken) {
       //@ts-ignore
-      const decodedData: JwtPayload & { role: any } = decodedToken(authToken);
-      const userInfo: any = {
+      const decodedData: JwtPayload & { role: string; email: string  } = decodedToken(authToken);
+      const userInfo: User = {
          ...decodedData,
          role: decodedData.role?.toLowerCase() || '',
       };
       setUser(userInfo);
   }}, []);
 
-  const login = (user: string) => {
-    // Set the user state immediately and store in localStorage
-    localStorage.setItem('accessToken', user);
-    setUser(user); // This triggers immediate re-render of components depending on this state
+  const login = (token: string) => {
+    localStorage.setItem('accessToken', token);
+    //@ts-ignore
+    const decodedData: JwtPayload & { role: string; email: string } = decodedToken(token);
+    const userInfo: User = {
+      email: decodedData.email || '',
+      role: decodedData.role?.toLowerCase() || '',
+    };
+    setUser(userInfo);
   };
 
   const logout = () => {

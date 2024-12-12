@@ -47,8 +47,14 @@ import { IBrand, ICategory } from "@/types";
 import Cart from "../cart/Cart";
 import { useCartItemsQuery, useCartsQuery, useRemoveFromCartMutation } from "@/redux/api/cartApi";
 import { getCart } from "@/services/actions/getCart";
-
-
+interface User {
+    email: string | null;
+    // other properties if any
+  }
+  interface AuthContext {
+    user: User | null;
+    logout: () => void;
+  }
 const TwoStepNavbar = () => {
     const [anchorElDropdown, setAnchorElDropdown] = useState<null | HTMLElement>(null);
     const [anchorElCart, setAnchorElCart] = useState<null | HTMLElement>(null);
