@@ -2,7 +2,7 @@
 
 export const registerCustomer = async (formData: FormData) => {
   const res = await fetch(
-    `project-bismillah-backend.vercel.app/api/v1/user/create-customer`,
+    `https://project-bismillah-backend.vercel.app/api/v1/user/create-customer`,
     {
       method: "POST",
       body: formData,

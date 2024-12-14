@@ -6,7 +6,7 @@ import { axiosBaseQuery } from "@/helpers/axios/axiosBaseQuery";
 // Define a service using a base URL and expected endpoints
 export const baseApi = createApi({
   reducerPath: "api",
-  baseQuery: axiosBaseQuery({ baseUrl: "project-bismillah-backend.vercel.app/api/v1" }),
+  baseQuery: axiosBaseQuery({ baseUrl: "https://project-bismillah-backend.vercel.app/api/v1" }),
   endpoints: () => ({}),
   tagTypes: tagTypesList,
 });
