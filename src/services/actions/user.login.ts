@@ -6,7 +6,7 @@ import setAccessToken from './setAccessToken';
 export const userLogin = async (data: FieldValues) => {
 
    const res = await fetch(
-      `https://project-bismillah-backend.vercel.app/api/v1/auth/login`,
+      `project-bismillah-backend.vercel.app/api/v1/auth/login`,
       {
          method: 'POST',
          headers: {

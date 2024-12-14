@@ -6,7 +6,7 @@ import setAccessToken from './setAccessToken';
 export const userResetPassword = async (data: FieldValues) => {
 
    const res = await fetch(
-      `https://project-bismillah-backend.vercel.app/api/v1/auth/reset-password`,
+      `project-bismillah-backend.vercel.app/api/v1/auth/reset-password`,
       {
          method: 'POST',
          headers: {

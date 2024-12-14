@@ -27,7 +27,7 @@ export const storeUserInfo = ({ accessToken }: { accessToken: string }) => {
 
  export const getNewAccessToken = async () => {
    return await axiosInstance({
-      url: 'https://project-bismillah-backend.vercel.app/api/v1/auth/refresh-token',
+      url: 'project-bismillah-backend.vercel.app/api/v1/auth/refresh-token',
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       withCredentials: true,

@@ -8,7 +8,7 @@ export const getCart = async () => {
     }
 
     const res = await fetch(
-        `https://project-bismillah-backend.vercel.app/api/v1/cart`,
+        `project-bismillah-backend.vercel.app/api/v1/cart`,
         {
             method: 'GET',
             headers: {
